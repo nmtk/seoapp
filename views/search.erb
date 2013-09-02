@@ -1,0 +1,37 @@
+<div id="highlighted">
+    <div class="container">
+        <div class="row-fluid header">
+            <h2 class="page-title"><span><a href="/./">ID入力 </a><span class="divider">/</span>キーワード入力 <small>検索順位を知りたいキーワードを入力しよう</small></h2>
+        </div>
+    </div>
+</div>  
+<div id="content">
+  <div class="container"> 
+    <div class="block services">
+      <ul class="thumbnails">
+        <li class="span12">
+                <div class="span3">
+                    <p><img src="<%= @image_url %>" />
+                </div>
+            <div class="span9">
+                <%= @artistName %></p>
+            </div>
+                
+            <div class="span7">
+            <div class="block">
+              <h3 class="block-title sub-title">キーワードを入力しよう</h3>
+                あなたのアプリが表示されましたね。
+                </br>
+                では次にあなたが検索順位を調べたいキーワードを入力して下さい。
+                </br>
+                キーワードは「,」で区切ることによって複数のキーワードを同時に調べることができます。
+                <form action="/ranking/result" method="get">
+                <p><input type="hidden" name="id" size="20" maxlength="20" value="<%= @id %>"></p>
+                <p><textarea name="word" cols="800" rows="10" placeholder="例:人気,アプリ" value=""></textarea></p>
+                <p>※キーワードは「,」で区切って下さい</p>
+                <input type="submit" class="btn btn-primary" value="決定">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
