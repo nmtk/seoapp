@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     backports (3.3.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -29,6 +32,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
   erubis
   mysql2
   sinatra
