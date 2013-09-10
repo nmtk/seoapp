@@ -10,15 +10,15 @@ require 'uri'
 require 'open-uri'
 require 'pp'
 require 'rexml/document'
+require 'active_support/core_ext'
 USER_AGENT = "iTunes-iPhone/4.2.1 (2; 8GB)"
 
 pp "firsttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
 
-=begin
 # 最初にDBを接続する
 before do
     if ENV['RACK_ENV'].blank? && ENV["CLEARDB_DATABASE_URL"].blank? then
-        database_config = { :host => "localhost", :username => "root", :password => "rappuppu", :database => "seoapp_development" }
+        database_config = { :host => "localhost", :username => "root", :password => "rappuppu", :database => "searchrankseo" }
         else
         parse_uri = URI.parse(ENV["CLEARDB_DATABASE_URL"])
         username  = parse_uri.user
@@ -30,13 +30,13 @@ before do
     end
     
     @db = Mysql2::Client.new(database_config)
+    
 end
 
 # 最後にDBを切断する
 after do
     @db.close if @db
 end
-=end
 
 #ID入力用のテキストフォーム
 get '/' do
@@ -160,6 +160,9 @@ get '/ranking/result' do
     @ranks = Array.new
     
     @keyword = params[:word]#TODO:フォームからパラメータ（検索キーワード）を取得する
+    escaped_id = @db.escape(@id)
+    escaped_keyword = @db.escape(@keyword)
+    @db.query("INSERT INTO search_histories (app_id, keyword) VALUES ('#{escaped_id}', '#{escaped_keyword}');")
     
     # キーワードを「,」で分ける
     @keyword1 = @keyword.split(",")
@@ -183,7 +186,7 @@ get '/ranking/result' do
     
     #for i in 0..keywords[0].size - 1 do
     #keywords[0].size.each do |i|
-    
+
     # キーワード毎に順位を出す
     @keyword2.each do |keyword|
         
